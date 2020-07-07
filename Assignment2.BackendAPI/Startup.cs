@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assignment2.App.Repository;
 using Assignment2.Data.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,9 @@ namespace Assignment2.BackendAPI
         {
             services.AddDbContext<Assignment2DbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Assignment2")));
+
+            services.AddTransient<IStudentService, StudentService>();
+
             services.AddControllers();
         }
 

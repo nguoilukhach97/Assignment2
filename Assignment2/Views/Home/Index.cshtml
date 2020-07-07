@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment2-Nguyễn Văn Hưng</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container" style="border: 1px solid;">
+        <div>
+            <div class="col-md-12 col-sm-12 col-lg-12 header-title">
+                <a class="title-name">Student management</a>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="content">
+                    <div class="content-1">
+                        <form>
+                            <div class="form-group">
+                                <label class="col-form-label col-md-2 col-sm-2  label-align">
+                                    Student Name :
+
+
+                                </label>
+                                <div class="col-md-4 col-sm-4">
+                                    <input type="text" class="form-control" name="Name" id="Name" required="required" style="border: 1px solid;" />
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <button type="submit" class="btn btn-success">Search</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div style="display:flex;margin: 12px 0">
+                        <div class="col-md-4 col-sm-4 col-lg-4">
+                            <button type="button" class="btn btn-success">Sort by name</button>
+                            <button type="button" class="btn btn-success">Sort by YearOfBirth</button>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-lg-6">
+                            <button type="submit" class="btn btn-success float-right">Add new</button>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-lg-10">
+                        <table class="table table-responsive">
+                            <thead style="background-color: green;color: white;text-align: center;">
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Year of birth</th>
+                                <th>Address</th>
+                                <th>Mobile phone</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody class="body-table">
+                                <tr class="table-success">
+                                    <td>1</td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>1990</td>
+                                    <td>xom 16, Hai Anh, Hai Hau, Nam Dinh</td>
+                                    <td>0969406305</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success">Edit</button>
+                                        <button class="btn btn-sm btn-success">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>1990</td>
+                                    <td>xom 16, Hai Anh, Hai Hau, Nam Dinh</td>
+                                    <td>0969406305</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success">Edit</button>
+                                        <button class="btn btn-sm btn-success">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>

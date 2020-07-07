@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "Assignment2": "Server=.;Database=Assigment2;Trusted_Connection=True;"
+  }
+}

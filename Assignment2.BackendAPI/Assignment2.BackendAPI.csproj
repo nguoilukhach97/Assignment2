@@ -4,5 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Assignment2.App\Assignment2.App.csproj" />
+    <ProjectReference Include="..\Assignment2.Data\Assignment2.Data.csproj" />
+  </ItemGroup>
+
 
 </Project>

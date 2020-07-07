@@ -11,5 +11,10 @@ namespace Assignment2.BackendAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok("Test success");
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment2.App;
-using Assignment2.App.Public;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,7 +26,7 @@ namespace Assignment2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddTransient<IManageStudentService,ManageStudent>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

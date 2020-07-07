@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Assignment2.App.DTOs
 {
-    public class PagingRequestPage
+    public class PagingRequestBase
     {
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

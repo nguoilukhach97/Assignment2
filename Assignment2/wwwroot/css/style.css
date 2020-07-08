@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header-title{
+    border-bottom: 1px solid green;
+}
+.title-name{
+    font-size: 30px;
+    color:slategray;
+}
+.content-1{
+    margin: 35px 0;
+    line-height: 12px;
+}
+
+.form-group{
+    display: flex;
+}
+.body-table td{
+    border:1px solid green;
+}

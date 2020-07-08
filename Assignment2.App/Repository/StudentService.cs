@@ -25,11 +25,11 @@ namespace Assignment2.App.Repository
         {
             var student = new Student()
             {
-                IdAdress = request.IdAdress,
+                
                 Name = request.Name,
                 YearOfBirth = request.YearOfBirth,
                 PhoneNumber = request.PhoneNumber,
-                AddressDetails = request.AddressDetails
+                Address = request.Address
             };
             _context.Students.Add(student);
             return await _context.SaveChangesAsync();
@@ -42,20 +42,12 @@ namespace Assignment2.App.Repository
             {
                 Id = x.Id,
                 Name = x.Name,
-                IdAdress = x.IdAdress,
+                
                 YearOfBirth = x.YearOfBirth,
                 PhoneNumber = x.PhoneNumber,
-                AddressDetails = x.AddressDetails,
-                Address = new Address()
-                {
-                    Id = x.Address.Id,
-                    Commune = x.Address.Commune,
-                    District = x.Address.District,
-                    Province = x.Address.Province
-                }
-
-            }
-            );
+                Address = x.Address,
+                
+            });
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -74,27 +66,26 @@ namespace Assignment2.App.Repository
 
         public async Task<PagedViewModel<StudentViewModel>> GetAllStudent()
         {
-            List<StudentViewModel> student = _context.Students.Select(x =>
+            var student = _context.Students.Select(x =>
             new StudentViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
-                IdAdress = x.IdAdress,
+                
                 YearOfBirth = x.YearOfBirth,
                 PhoneNumber = x.PhoneNumber,
-                AddressDetails = x.AddressDetails,
-                Address = new Address()
-                {
-                    Id = x.Address.Id,
-                    Commune = x.Address.Commune,
-                    District = x.Address.District,
-                    Province = x.Address.Province
-                }
+                Address = x.Address,
+                
 
-            }
-            ).ToList();
+            });
 
-            return new PagedViewModel<StudentViewModel>() { TotalRecord = student.Count };
+            var data = new PagedViewModel<StudentViewModel>()
+            {
+                Items = await student.ToListAsync(),
+                TotalRecord = await student.CountAsync()
+            };
+
+            return data;
         }
 
         

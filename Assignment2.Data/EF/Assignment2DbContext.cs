@@ -17,12 +17,12 @@ namespace Assignment2.Data.EF
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new StudentConfiguration());
-            builder.ApplyConfiguration(new AddressConfiguration());
+            
 
             base.OnModelCreating(builder);
         }
 
         public DbSet<Student> Students { get; set; }
-        public DbSet<Address> Address { get; set; }
+        
     }
 }

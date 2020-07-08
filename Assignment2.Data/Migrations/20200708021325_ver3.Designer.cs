@@ -4,14 +4,16 @@ using Assignment2.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment2.Data.Migrations
 {
     [DbContext(typeof(Assignment2DbContext))]
-    partial class Assignment2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20200708021325_ver3")]
+    partial class ver3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,6 +33,9 @@ namespace Assignment2.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
+
+                    b.Property<int>("IdAdress")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Assignment2.App\Assignment2.App.csproj" />
+    <ProjectReference Include="..\Assignment2.ViewModel\Assignment2.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

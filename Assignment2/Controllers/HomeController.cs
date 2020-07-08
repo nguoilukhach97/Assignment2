@@ -7,12 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using Assignment2.Data.EF;
 using Assignment2.App;
 using Assignment2.App.Manages;
+using Assignment2.Services;
 
 namespace Assignment2.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private readonly IStudentAPI _studentAPI;
+        public HomeController(IStudentAPI studentAPI)
+        {
+            _studentAPI = studentAPI;
+        }
         [HttpGet]
         public IActionResult Index()
         {
@@ -25,10 +30,6 @@ namespace Assignment2.Controllers
            
             return View();
         }
-        public IActionResult test()
-        {
-            
-            return View();
-        }
+        
     }
 }

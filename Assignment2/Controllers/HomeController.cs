@@ -8,27 +8,36 @@ using Assignment2.Data.EF;
 using Assignment2.App;
 using Assignment2.App.Manages;
 using Assignment2.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace Assignment2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IStudentAPI _studentAPI;
-        public HomeController(IStudentAPI studentAPI)
+        private readonly IConfiguration _configuration;
+        public HomeController(IStudentAPI studentAPI,IConfiguration configuration)
         {
             _studentAPI = studentAPI;
+            _configuration = configuration;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string keyword,int pageIndex=1,int pageSize=5)
         {
-            
-            return View();
+            var data = await _studentAPI.GetAllPaging(keyword,pageIndex,pageSize);
+            ViewBag.keyword = keyword;
+            return View(data);
         }
+        
         [HttpPost]
-        public IActionResult Index(StudentCreateRequest request)
+        public async Task<IActionResult> Create(StudentCreateRequest request, string Commune, string District, string Province)
         {
-           
-            return View();
+            if (!ModelState.IsValid)
+                return View();
+            request.Address = request.Address + $", {Commune}, {District}, {Province}";
+            var result = await _studentAPI.Create(request);
+
+            return View(request);
         }
         
     }

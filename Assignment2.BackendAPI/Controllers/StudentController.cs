@@ -43,26 +43,28 @@ namespace Assignment2.BackendAPI.Controllers
                 return BadRequest("Cannot find Student");
             return Ok(student);
         }
-        [HttpPost]
+        [HttpPost("create-student")]
         public async Task<IActionResult> Create([FromBody]StudentCreateRequest request)
         {
+            if (ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var result = await _service.Create(request);
-            if (result == 0)
-                return BadRequest();
+            if (result<=0)
+                return BadRequest(result);
 
-            var student = await _service.GetById(result);
-            return CreatedAtAction(nameof(GetById),new { Id = result },student);
-        }
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] StudentCreateRequest request)
-        {
-            var result = await _service.Update(request);
-            if (result == 0)
-            {
-                return BadRequest();
-            }
             return Ok();
         }
+        //[HttpPut]
+        //public async Task<IActionResult> Update([FromBody] StudentCreateRequest request)
+        //{
+        //    var result = await _service.Update(request);
+        //    if (result == 0)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok();
+        //}
 
         [HttpDelete("{studentId}")]
         public async Task<IActionResult> Delete(int studentId)

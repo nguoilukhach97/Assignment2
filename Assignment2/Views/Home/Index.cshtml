@@ -1,92 +1,200 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment2-Nguyễn Văn Hưng</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <div class="container" style="border: 1px solid;">
-        <div>
-            <div class="col-md-12 col-sm-12 col-lg-12 header-title">
-                <a class="title-name">Student management</a>
-            </div>
-            <div class="col-md-12 col-sm-12 col-lg-12">
-                <div class="content">
-                    <div class="content-1">
-                        <form>
-                            <div class="form-group">
-                                <label class="col-form-label col-md-2 col-sm-2  label-align">
-                                    Student Name :
+﻿@using Assignment2.App.DTOs;
+@model PagedViewModel<Assignment2.App.ViewModels.StudentViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="border: 1px solid;">
+    <div>
+        <div class="col-md-12 col-sm-12 col-lg-12 header-title">
+            <a class="title-name">Student management</a>
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="content">
+                <div class="content-1">
+                    <form method="get" action="/home/index">
+                        <div class="form-group">
+                            <label class="col-form-label col-md-2 col-sm-2  label-align">
+                                Student Name :
 
 
-                                </label>
-                                <div class="col-md-4 col-sm-4">
-                                    <input type="text" class="form-control" name="Name" id="Name" required="required" style="border: 1px solid;" />
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <button type="submit" class="btn btn-success">Search</button>
-                                </div>
+                            </label>
+                            <div class="col-md-4 col-sm-4">
+                                <input type="text" class="form-control" value="@ViewBag.keyword" name="keyword" id="keyword" style="border: 1px solid;" />
                             </div>
-
-                        </form>
-
-                    </div>
-                    <div style="display:flex;margin: 12px 0">
-                        <div class="col-md-4 col-sm-4 col-lg-4">
-                            <button type="button" class="btn btn-success">Sort by name</button>
-                            <button type="button" class="btn btn-success">Sort by YearOfBirth</button>
+                            <div class="col-md-4 col-sm-4">
+                                <button type="submit" class="btn btn-success">Search</button>
+                            </div>
                         </div>
 
-                        <div class="col-md-6 col-sm-6 col-lg-6">
-                            <button type="submit" class="btn btn-success float-right">Add new</button>
-                        </div>
+                    </form>
+
+                </div>
+                <div style="display:flex;margin: 12px 0">
+                    <div class="col-md-4 col-sm-4 col-lg-4" style="display:flex;">
+                        <button type="button" class="btn btn-success" style="margin:5px;">Sort by name</button>
+                        <button type="button" class="btn btn-success" style="margin:5px;">Sort by YearOfBirth</button>
                     </div>
-                    <div class="col-md-10 col-sm-10 col-lg-10">
-                        <table class="table table-responsive">
-                            <thead style="background-color: green;color: white;text-align: center;">
-                                <th>No</th>
+
+                    <div class="col-md-6 col-sm-6 col-lg-6">
+                        <button type="submit" class="btn btn-success float-right" data-toggle="modal" data-target="#modal">Add new</button>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <table class="table table-responsive">
+                        <thead style="background-color: green;color: white;text-align: center;">
+                            <tr>
+                                <td>No</td>
                                 <th>Name</th>
                                 <th>Year of birth</th>
                                 <th>Address</th>
                                 <th>Mobile phone</th>
                                 <th>Action</th>
-                            </thead>
-                            <tbody class="body-table">
+                            </tr>
+
+                        </thead>
+                        <tbody class="body-table">
+                            @foreach (var item in Model.Items)
+                            {
                                 <tr class="table-success">
-                                    <td>1</td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>1990</td>
-                                    <td>xom 16, Hai Anh, Hai Hau, Nam Dinh</td>
-                                    <td>0969406305</td>
+
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.YearOfBirth</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.PhoneNumber</td>
                                     <td>
                                         <button class="btn btn-sm btn-success">Edit</button>
                                         <button class="btn btn-sm btn-success">Delete</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>1990</td>
-                                    <td>xom 16, Hai Anh, Hai Hau, Nam Dinh</td>
-                                    <td>0969406305</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-success">Edit</button>
-                                        <button class="btn btn-sm btn-success">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
 
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add new student</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form method="post" action="/Home/Create">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-1 col-sm-1"></div>
+                        <div class="col-md-10 col-sm-10">
+                            <div class="x_panel">
+                                <div class="x_content">
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            Name<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="hidden" id="Id" name="Id" value="0" />
+                                            <input type="text" class="form-control" data-validate-length-range="6" data-validate-words="2" name="Name" id="Name"
+                                                   required="required" />
+                                        </div>
+                                    </div>
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            Year of birth :<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+
+                                            <input type="text" class="form-control" data-validate-length-range="6" data-validate-words="2" name="YearOfBirth"
+                                                   required="required" />
+                                        </div>
+                                    </div>
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            Address :<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+
+                                            <input type="text" class="form-control" name="Address"
+                                                   required="required" />
+                                        </div>
+                                    </div>
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            Province :<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <select class="form-control" name="Province">
+                                                <optgroup label="Chọn Tỉnh" class="dropdowcatalog">
+                                                    <option>nào đó</option>
+                                                </optgroup>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            District<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <select class="form-control" name="District">
+                                                <optgroup label="Chọn Huyện" class="dropdowbrand">
+                                                    <option>nào đó</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            Commune : <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <select class="form-control" name="Commune">
+                                                <optgroup label="Chọn Xã" class="dropdowbrand">
+                                                    <option>nào đó</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">
+                                            Mobile : <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input class="form-control number" type="number" name="PhoneNumber" required='required'>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type='reset' class="btn btn-info">Reset</button>
+                    <button type="submit" class="btn btn-success">Lưu lại</button>
+                </div>
+
+            </form>
         </div>
     </div>
+</div>
 
 
 
-</body>
-</html>

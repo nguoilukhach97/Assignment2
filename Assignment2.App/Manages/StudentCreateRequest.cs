@@ -6,7 +6,7 @@ namespace Assignment2.App.Manages
 {
     public class StudentCreateRequest
     {
-        public int Id { get; set; }
+        
         
         public string Name { get; set; }
         public int YearOfBirth { get; set; }

@@ -3,6 +3,7 @@ using Assignment2.App.Manages;
 using Assignment2.App.ViewModels;
 using Assignment2.Data.EF;
 using Assignment2.Data.Entities;
+using Assignment2.App.Common;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -112,22 +113,22 @@ namespace Assignment2.App.Repository
             return result;
         }
 
-        public async Task<int> Update(StudentCreateRequest request)
-        {
-            var student = await _context.Students.FindAsync(request.Id);
-            if (student != null)
-            {
-                student = new Student()
-                {
-                    Name= request.Name,
-                    PhoneNumber= request.PhoneNumber,
-                    Address= request.Address,
-                     YearOfBirth = request.YearOfBirth
-                };
+        //public async Task<int> Update(StudentCreateRequest request)
+        //{
+        //    var student = await _context.Students.FindAsync(request.Id);
+        //    if (student != null)
+        //    {
+        //        student = new Student()
+        //        {
+        //            Name= request.Name,
+        //            PhoneNumber= request.PhoneNumber,
+        //            Address= request.Address,
+        //             YearOfBirth = request.YearOfBirth
+        //        };
 
-                return await _context.SaveChangesAsync();
-            }
-            return 0;
-        }
+        //        return await _context.SaveChangesAsync();
+        //    }
+        //    return 0;
+        //}
     }
 }

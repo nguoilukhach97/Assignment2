@@ -61,7 +61,7 @@ namespace Assignment2.App.Repository
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                student = student.Where(p => p.Name.Contains(keyword) || p.Address.Contains(keyword));
+                student = student.Where(p => p.Name.Contains(keyword) || p.Address.Contains(keyword) || p.PhoneNumber.Contains(keyword));
             }
             int totalRow = await student.CountAsync();
 

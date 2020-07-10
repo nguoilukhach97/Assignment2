@@ -16,6 +16,10 @@ namespace Assignment2.Services
         Task<int> Update(StudentUpdateRequest request);
         Task<int> Delete(int id);
         Task<StudentUpdateRequest> GetStudent(int id);
+
+        Task<LtsItemRequest> GetProvine();
+        Task<List<ProvinceRequest>> GetDistrict(int id);
+        Task<List<CommuneRequest>> GetCommune(int id);
          
     }
 }

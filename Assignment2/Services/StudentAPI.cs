@@ -89,5 +89,26 @@ namespace Assignment2.Services
 
             return data;
         }
+
+        public async Task<LtsItemRequest> GetProvine()
+        {
+            var data = await GetAsync<LtsItemRequest>($"https://thongtindoanhnghiep.co/api/city");
+
+            return data;
+        }
+
+        public async Task<List<ProvinceRequest>> GetDistrict(int id)
+        {
+            var data = await GetAsync<List<ProvinceRequest>>($"https://thongtindoanhnghiep.co/api/city/"+id+"/district");
+
+            return data;
+        }
+
+        public async Task<List<CommuneRequest>> GetCommune(int id)
+        {
+            var data = await GetAsync<List<CommuneRequest>>($"https://thongtindoanhnghiep.co/api/district/"+id+"/ward");
+
+            return data;
+        }
     }
 }

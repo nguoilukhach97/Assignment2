@@ -18,8 +18,6 @@
                         <div class="form-group">
                             <label class="col-form-label col-md-2 col-sm-2  label-align">
                                 Student Name :
-
-
                             </label>
                             <div class="col-md-4 col-sm-4">
                                 <input type="text" class="form-control" value="@ViewBag.keyword" name="keyword" id="keyword" style="border: 1px solid;" />
@@ -153,7 +151,7 @@
                                             Province :<span class="required">*</span>
                                         </label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="Province" id="Provine">
+                                            <select class="form-control" name="Province" id="Province" required>
                                                 <optgroup label="Chọn Tỉnh" class="dropdowcatalog">
                                                     <option>nào đó</option>
                                                 </optgroup>
@@ -166,9 +164,9 @@
                                             District<span class="required">*</span>
                                         </label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="District" id="District">
+                                            <select class="form-control" name="District" id="District" required>
                                                 <optgroup label="Chọn Huyện" class="dropdowbrand">
-                                                    <option>nào đó</option>
+                                                    
                                                 </optgroup>
                                             </select>
                                         </div>
@@ -178,9 +176,9 @@
                                             Commune : <span class="required">*</span>
                                         </label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="Commune" id="Commune">
+                                            <select class="form-control" name="Commune" id="Commune" required>
                                                 <optgroup label="Chọn Xã" class="dropdowbrand">
-                                                    <option>nào đó</option>
+                                                    
                                                 </optgroup>
                                             </select>
                                         </div>

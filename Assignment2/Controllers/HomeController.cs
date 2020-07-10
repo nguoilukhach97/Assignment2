@@ -69,5 +69,26 @@ namespace Assignment2.Controllers
             var data = await _studentAPI.GetStudent(id);
             return new  JsonResult(data);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetProvince()
+        {
+            var data = await _studentAPI.GetProvine();
+            return new JsonResult(data);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetDistrict(int id)
+        {
+            var data = await _studentAPI.GetDistrict(id);
+            return new JsonResult(data);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetCommune(int id)
+        {
+            var data = await _studentAPI.GetCommune(id);
+            return new JsonResult(data);
+        }
     }
 }

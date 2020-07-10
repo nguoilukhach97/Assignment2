@@ -28,9 +28,9 @@ namespace Assignment2.BackendAPI.Controllers
         }
 
         [HttpGet("student-search")]
-        public async Task<IActionResult> SearchStudent(string keyword, int pageIndex, int pageSize)
+        public async Task<IActionResult> SearchStudent(string keyword, int pageIndex, int pageSize,int sort)
         {
-            var dataStudent = await _service.GetAllPaging(keyword,pageIndex, pageSize);
+            var dataStudent = await _service.GetAllPaging(keyword,pageIndex, pageSize,sort);
             return Ok(dataStudent);
         }
 
@@ -46,25 +46,25 @@ namespace Assignment2.BackendAPI.Controllers
         [HttpPost("create-student")]
         public async Task<IActionResult> Create([FromBody]StudentCreateRequest request)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
             var result = await _service.Create(request);
             if (result<=0)
                 return BadRequest(result);
 
-            return Ok();
+            return Ok(result);
         }
-        //[HttpPut]
-        //public async Task<IActionResult> Update([FromBody] StudentCreateRequest request)
-        //{
-        //    var result = await _service.Update(request);
-        //    if (result == 0)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    return Ok();
-        //}
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] StudentUpdateRequest request)
+        {
+            var result = await _service.Update(request);
+            if (result == 0)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
 
         [HttpDelete("{studentId}")]
         public async Task<IActionResult> Delete(int studentId)
@@ -74,7 +74,7 @@ namespace Assignment2.BackendAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok();
+            return Ok(result);
         }
         
     }

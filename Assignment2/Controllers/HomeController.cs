@@ -9,6 +9,7 @@ using Assignment2.App;
 using Assignment2.App.Manages;
 using Assignment2.Services;
 using Microsoft.Extensions.Configuration;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace Assignment2.Controllers
 {
@@ -22,23 +23,51 @@ namespace Assignment2.Controllers
             _configuration = configuration;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(string keyword,int pageIndex=1,int pageSize=5)
+        public async Task<IActionResult> Index(string keyword,int pageIndex=1,int pageSize=10,int sort=0)
         {
-            var data = await _studentAPI.GetAllPaging(keyword,pageIndex,pageSize);
+            var data = await _studentAPI.GetAllPaging(keyword,pageIndex,pageSize,sort);
+            
             ViewBag.keyword = keyword;
             return View(data);
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create(StudentCreateRequest request, string Commune, string District, string Province)
+        public async Task<IActionResult> Create(StudentUpdateRequest request, string Commune, string District, string Province)
         {
             if (!ModelState.IsValid)
                 return View();
             request.Address = request.Address + $", {Commune}, {District}, {Province}";
-            var result = await _studentAPI.Create(request);
+            if (request.Id==0)
+            {
+                var stCreate = new StudentCreateRequest()
+                {
+                    Name = request.Name,
+                    Address=request.Address,
+                    PhoneNumber= request.PhoneNumber,
+                    YearOfBirth = request.YearOfBirth
+                };
+                var result = await _studentAPI.Create(stCreate);
+            }
+            else
+            {
+                var result = await _studentAPI.Update(request);
+            }
+            return RedirectToAction("Index");
+        }
 
-            return View(request);
+        [HttpPost]
+        public async Task<ActionResult> Delete(int studentId)
+        {
+            var result = await _studentAPI.Delete(studentId);
+            
+            return RedirectToAction("Index");
         }
         
+        [HttpGet]
+        public async Task<JsonResult> GetStudent(int id)
+        {
+            var data = await _studentAPI.GetStudent(id);
+            return new  JsonResult(data);
+        }
     }
 }

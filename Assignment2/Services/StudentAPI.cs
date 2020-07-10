@@ -31,11 +31,11 @@ namespace Assignment2.Services
         }
 
 
-        public async Task<PagedViewModel<StudentViewModel>> GetAllPaging(string keyword,int pageIndex, int pageSize)
+        public async Task<PagedViewModel<StudentViewModel>> GetAllPaging(string keyword,int pageIndex, int pageSize,int sort)
         {
             var data = await GetAsync<PagedViewModel<StudentViewModel>>(
                 $"/api/student/student-search?keyword={keyword}&pageIndex={pageIndex}" +
-                $"&pageSize={pageSize}");
+                $"&pageSize={pageSize}&sort={sort}");
 
             return data;
         }
@@ -56,6 +56,38 @@ namespace Assignment2.Services
             return JsonConvert.DeserializeObject<int>(result);
         }
 
+        
+        public async Task<int> Delete(int studentId)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            var response = await client.DeleteAsync($"/api/student/{studentId}");
+            var body = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<int>(body);
 
+        }
+
+        public async Task<int> Update(StudentUpdateRequest request)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync($"/api/student", httpContent);
+
+            var result = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<int>(result);
+
+            return JsonConvert.DeserializeObject<int>(result);
+        }
+
+        public async Task<StudentUpdateRequest> GetStudent(int id)
+        {
+            var data = await GetAsync<StudentUpdateRequest>($"/api/student/{id}");
+
+            return data;
+        }
     }
 }

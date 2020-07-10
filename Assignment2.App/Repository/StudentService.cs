@@ -46,7 +46,7 @@ namespace Assignment2.App.Repository
 
         }
 
-        public async Task<PagedViewModel<StudentViewModel>> GetAllPaging(string keyword, int pageIndex, int pageSize)
+        public async Task<PagedViewModel<StudentViewModel>> GetAllPaging(string keyword, int pageIndex, int pageSize,int sort)
         {
             var student = _context.Students.Select(x =>
             new StudentViewModel()
@@ -64,6 +64,15 @@ namespace Assignment2.App.Repository
                 student = student.Where(p => p.Name.Contains(keyword) || p.Address.Contains(keyword));
             }
             int totalRow = await student.CountAsync();
+
+            if (sort==1)
+            {
+                student = student.OrderBy(p => p.Name);
+            }
+            if(sort ==2)
+            {
+               student= student.OrderBy(p => p.YearOfBirth);
+            }    
             var data = student.Skip((pageIndex - 1) * pageSize).Take(pageSize);
 
             var page = new PagedViewModel<StudentViewModel>()
@@ -98,11 +107,11 @@ namespace Assignment2.App.Repository
             return data;
         }
 
-        public async Task<StudentViewModel> GetById(int id)
+        public async Task<StudentUpdateRequest> GetById(int id)
         {
             var student = await _context.Students.FindAsync(id);
             
-            var result = new StudentViewModel()
+            var result = new StudentUpdateRequest()
             {
                 Id = student.Id,
                 Name= student.Name,
@@ -113,22 +122,24 @@ namespace Assignment2.App.Repository
             return result;
         }
 
-        //public async Task<int> Update(StudentCreateRequest request)
-        //{
-        //    var student = await _context.Students.FindAsync(request.Id);
-        //    if (student != null)
-        //    {
-        //        student = new Student()
-        //        {
-        //            Name= request.Name,
-        //            PhoneNumber= request.PhoneNumber,
-        //            Address= request.Address,
-        //             YearOfBirth = request.YearOfBirth
-        //        };
+        public async Task<int> Update(StudentUpdateRequest request)
+        {
+            var student = await _context.Students.FindAsync(request.Id);
+            if (student != null)
+            {
+                student.Name = request.Name;
+                student.PhoneNumber = request.PhoneNumber;
+                student.Address = request.Address;
+                student.YearOfBirth = request.YearOfBirth;
+                
 
-        //        return await _context.SaveChangesAsync();
-        //    }
-        //    return 0;
-        //}
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
+        }
+
+       
+
+        
     }
 }

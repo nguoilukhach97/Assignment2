@@ -74,24 +74,26 @@
                                     <td>@item.Address</td>
                                     <td>@item.PhoneNumber</td>
                                     <td style="display:flex;">
-                                        <button class="btn btn-sm btn-success edit-student" data-id="@item.Id">Edit</button>
+                                        <button class="btn btn-sm btn-success edit-student" data-id="@item.Id" data-address="@item.IdAddress">Edit</button>
                                         <form method="post" action="/home/delete" style="width:50%;margin-left:5px;" class="float-right">
                                             <input type="hidden" name="studentId" value="@item.Id" />
                                             <button type="submit" class="btn btn-sm btn-success">Delete</button>
                                         </form>
-                                        
+
                                     </td>
                                 </tr>
-                                
+
                             }
 
 
                         </tbody>
                     </table>
+
+                    @await Component.InvokeAsync("Pager", Model)
                 </div>
             </div>
         </div>
-
+        
     </div>
 </div>
 
@@ -118,6 +120,7 @@
                                 <div class="x_content">
                                     <div class="field item form-group">
                                         <input type="hidden" name="Id" id="Id" value="0" />
+                                        <input type="hidden" name="IdAddress" id="IdAddress" value="" />
                                         <label class="col-form-label col-md-3 col-sm-3  label-align">
                                             Name<span class="required">*</span>
                                         </label>

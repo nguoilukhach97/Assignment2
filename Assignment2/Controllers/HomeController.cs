@@ -23,7 +23,7 @@ namespace Assignment2.Controllers
             _configuration = configuration;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(string keyword,int pageIndex=1,int pageSize=10,int sort=0)
+        public async Task<IActionResult> Index(string keyword,int pageIndex=1,int pageSize=3,int sort=0)
         {
             var data = await _studentAPI.GetAllPaging(keyword,pageIndex,pageSize,sort);
             
@@ -35,12 +35,13 @@ namespace Assignment2.Controllers
         public async Task<IActionResult> Create(StudentUpdateRequest request, string Commune, string District, string Province)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View("/Home/Error");
             request.Address = request.Address + $", {Commune}, {District}, {Province}";
             if (request.Id==0)
             {
                 var stCreate = new StudentCreateRequest()
                 {
+                    IdAddress = request.IdAddress,
                     Name = request.Name,
                     Address=request.Address,
                     PhoneNumber= request.PhoneNumber,
@@ -64,10 +65,15 @@ namespace Assignment2.Controllers
         }
         
         [HttpGet]
-        public async Task<JsonResult> GetStudent(int id)
+        public async Task<JsonResult> GetStudent(int id,int idAddress)
         {
             var data = await _studentAPI.GetStudent(id);
-            return new  JsonResult(data);
+            var adress = await _studentAPI.GetIdAddress(idAddress);
+            var request = new GetInfoUpdateRequest() { 
+                Student = data,
+                Address = adress
+            };
+            return new  JsonResult(request);
         }
 
         [HttpGet]
@@ -90,5 +96,6 @@ namespace Assignment2.Controllers
             var data = await _studentAPI.GetCommune(id);
             return new JsonResult(data);
         }
+      
     }
 }

@@ -110,5 +110,12 @@ namespace Assignment2.Services
 
             return data;
         }
+
+        public async Task<IdAddressRequest> GetIdAddress(int id)
+        {
+            var data = await GetAsync<IdAddressRequest>($"https://thongtindoanhnghiep.co/api/ward/" + id );
+
+            return data;
+        }
     }
 }

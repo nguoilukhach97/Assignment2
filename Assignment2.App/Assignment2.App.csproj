@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Assignment2.Common\Assignment2.Common.csproj" />
     <ProjectReference Include="..\Assignment2.Data\Assignment2.Data.csproj" />
   </ItemGroup>
 

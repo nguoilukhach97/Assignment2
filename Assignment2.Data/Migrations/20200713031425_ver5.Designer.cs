@@ -4,14 +4,16 @@ using Assignment2.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment2.Data.Migrations
 {
     [DbContext(typeof(Assignment2DbContext))]
-    partial class Assignment2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20200713031425_ver5")]
+    partial class ver5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

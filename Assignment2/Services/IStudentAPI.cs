@@ -20,6 +20,7 @@ namespace Assignment2.Services
         Task<LtsItemRequest> GetProvine();
         Task<List<ProvinceRequest>> GetDistrict(int id);
         Task<List<CommuneRequest>> GetCommune(int id);
+        Task<IdAddressRequest> GetIdAddress(int id);
          
     }
 }

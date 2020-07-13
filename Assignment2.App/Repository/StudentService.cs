@@ -26,7 +26,7 @@ namespace Assignment2.App.Repository
         {
             var student = new Student()
             {
-                
+                IdAddress =request.IdAddress,
                 Name = request.Name,
                 YearOfBirth = request.YearOfBirth,
                 PhoneNumber = request.PhoneNumber,
@@ -52,6 +52,7 @@ namespace Assignment2.App.Repository
             new StudentViewModel()
             {
                 Id = x.Id,
+                IdAddress = x.IdAddress,
                 Name = x.Name,
                 YearOfBirth = x.YearOfBirth,
                 PhoneNumber = x.PhoneNumber,
@@ -78,6 +79,8 @@ namespace Assignment2.App.Repository
             var page = new PagedViewModel<StudentViewModel>()
             {
                 TotalRecord = totalRow,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
                 Items = await data.ToListAsync()
             };
             return page;
@@ -109,13 +112,20 @@ namespace Assignment2.App.Repository
 
         public async Task<StudentUpdateRequest> GetById(int id)
         {
+           
             var student = await _context.Students.FindAsync(id);
-            
+            string[] lstAddress = student.Address.Split(',');
+            string addressSt =lstAddress[0] ;
+            for (int i = 1; i < lstAddress.Length-3; i++)
+            {
+                addressSt += ", "+lstAddress[i];
+            }
             var result = new StudentUpdateRequest()
             {
                 Id = student.Id,
+                IdAddress= student.IdAddress,
                 Name= student.Name,
-                Address= student.Address,
+                Address= addressSt,
                 PhoneNumber= student.PhoneNumber,
                 YearOfBirth = student.YearOfBirth
             };
@@ -128,10 +138,10 @@ namespace Assignment2.App.Repository
             if (student != null)
             {
                 student.Name = request.Name;
+                student.IdAddress = request.IdAddress;
                 student.PhoneNumber = request.PhoneNumber;
                 student.Address = request.Address;
                 student.YearOfBirth = request.YearOfBirth;
-                
 
                 return await _context.SaveChangesAsync();
             }

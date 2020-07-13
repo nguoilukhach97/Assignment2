@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Assignment2.App\Assignment2.App.csproj" />
+    <ProjectReference Include="..\Assignment2.Common\Assignment2.Common.csproj" />
   </ItemGroup>
 
 </Project>
